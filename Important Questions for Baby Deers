@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine for Aimilia</title>
+<style>
+    body {
+        background: pink;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 50px;
+        overflow: hidden;
+    }
+    .heart {
+        font-size: 50px;
+        animation: float 4s infinite;
+        position: absolute;
+    }
+    @keyframes float {
+        0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+        50% { opacity: 1; }
+        100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
+    }
+    h1 {
+        color: #ff4d88;
+        font-size: 40px;
+    }
+    p {
+        font-size: 22px;
+    }
+    button {
+        padding: 15px 25px;
+        font-size: 18px;
+        margin: 10px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+        color: white;
+    }
+    .good { background-color: #28a745; } /* green */
+    .bad { background-color: #dc3545; } /* red */
+    .fade {
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+    }
+    .visible {
+        opacity: 1;
+    }
+</style>
+</head>
+<body>
+
+<h1>🚨👮‍♂️🔫 Online Identity Check! 🔫👮‍♂️🚨</h1>
+<p>In recent years the number of online scams has skyrocketed!  
+To verify your identity, please answer the following questions truthfully 🦌💖</p>
+
+<div id="question-container">
+  <!-- Questions will appear here -->
+</div>
+
+<script>
+const questions = [
+    { 
+        q: "Question 1: Are you a baby deer? 🦌", 
+        answers: [
+            { text: "Yes, absolutely! 😄💖", type: "good" },
+            { text: "No, what's that supposed to mean? 🤔", type: "bad" }
+        ] 
+    },
+    { 
+        q: "Question 2: Are you the most beautiful girl in the whole entire world? 🌎✨", 
+        answers: [
+            { text: "Yes and my boyfriend and soon to be husband is completely obsessed 😍💖", type: "good" },
+            { text: "Yes but in red 🔴", type: "bad" }
+        ] 
+    },
+    { 
+        q: "Question 3: Do you promise to stay by your boyfriend's side for the rest of your life? 💕🦌", 
+        answers: [
+            { text: "Yes, obviously that's what baby deer do anyway 🦌💖", type: "good" },
+            { text: "No, I am here for the lifestyle and I hate his guts 😈🧙‍♀️", type: "bad" }
+        ] 
+    },
+    { 
+        q: "Question 4: Did you know your boyfriend loves you more than anyone has ever loved anyone ever? 💘", 
+        answers: [
+            { text: "Yes, I am aware and eternally grateful and I love him just as much 💖💞", type: "good" },
+            { text: "No, Joe Goldberg loved Guinevere Beck more 😳", type: "bad" }
+        ] 
+    },
+    { 
+        q: "Question 5: What describes your physical appearance best? 💋🍑🍒", 
+        answers: [
+            { text: "Cute kissable face, gorgeous hair, Big boobas, big butt 😏🍑🍒", type: "good" },
+            { text: "Short hair, missing teeth, big neck, one eye, 3 legs, 4 arms 🤪", type: "bad" }
+        ] 
+    },
+    { 
+        q: "Question 6: Do you like the 2004 Alfa Romeo 156? 🚗💖", 
+        answers: [
+            { text: "Yes, I think my boyfriend's is the prettiest and I wanna be a passenger princess 👑💖", type: "good" },
+            { text: "No, I can’t stop thinking about the Dacia Duster and Skoda Octavia 🤷‍♀️", type: "bad" }
+        ] 
+    }
+];
+
+let current = 0;
+
+function showQuestion() {
+    const container = document.getElementById("question-container");
+    container.classList.remove("visible");
+    setTimeout(() => {
+        container.innerHTML = "";
+        const q = questions[current];
+        const questionText = document.createElement("p");
+        questionText.innerHTML = q.q;
+        container.appendChild(questionText);
+
+        q.answers.forEach(ans => {
+            const btn = document.createElement("button");
+            btn.className = ans.type;
+            btn.innerHTML = ans.text;
+            btn.onclick = () => nextQuestion();
+            container.appendChild(btn);
+        });
+        container.classList.add("visible");
+    }, 300);
+}
+
+function nextQuestion() {
+    current++;
+    if(current < questions.length){
+        showQuestion();
+    } else {
+        showIdentityConfirmed();
+    }
+}
+
+function showIdentityConfirmed() {
+    const container = document.getElementById("question-container");
+    container.classList.remove("visible");
+    setTimeout(() => {
+        container.innerHTML = `
+            <h1>🎉 Identity Confirmed! 🎉</h1>
+            <p>*You are 100% a baby deer!* 🦌💖</p>
+            <button onclick="showFinalQuestion()" class="good">OKAY ✅</button>
+        `;
+        container.classList.add("visible");
+    }, 300);
+}
+
+function showFinalQuestion() {
+    const container = document.getElementById("question-container");
+    container.classList.remove("visible");
+    setTimeout(() => {
+        container.innerHTML = `
+            <h1>🌟 Now to the MOST IMPORTANT QUESTION ever! 🌟</h1>
+            <p>A question that will determine your fate and the rest of the world's existence 💖🦌</p>
+            <h2>Will you be my Valentine's, my beautiful princess? 💌💋</h2>
+            <button class="good" onclick="finalCelebration()">YES OMG I WOULD BE HONORED 😍💖</button>
+            <button class="good" onclick="finalCelebration()">YES WITH KISSES 😘💖💋</button>
+        `;
+        container.classList.add("visible");
+    }, 300);
+}
+
+function finalCelebration() {
+    document.body.innerHTML = `
+        <h1>💖💖💖 YAY!!! 💖💖💖</h1>
+        <p>Aimilia said YES!!! 😍💞🦌</p>
+        <p>Love always, Paris 💖💋</p>
+    `;
+}
+
+// Generate floating hearts
+for(let i=0;i<50;i++){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random()*100+"vw";
+    heart.style.animationDuration = 3 + Math.random()*3 + "s";
+    heart.innerHTML = "❤️";
+    document.body.appendChild(heart);
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>
